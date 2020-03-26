@@ -33,7 +33,6 @@ app.get("/api/workouts", (req,res)=>{
     .then(dbWorkout=>res.json(dbWorkout))
     .catch(err=>res.json(err))
 })
-
 app.get("/api/workouts/range",(req,res)=>{
     db.Workout.find({})
     .then(dbWorkout=>res.json(dbWorkout))
@@ -47,8 +46,9 @@ app.post("/api/workouts",(req,res)=>{
 })
 
 app.put("/api/workouts/:id",(req,res)=>{
-    db.Workout.findByIdAndUpdate({}, {$push:{exercises:req.body}},{ new: true })
+    db.Workout.findByIdAndUpdate({_id:req.params.id}, {$push:{exercises:req.body}})
     .then(workouts=>res.json(workouts))
+    .catch(err=>res.json(err))
 })
 //api routes
 
